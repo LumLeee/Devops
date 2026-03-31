@@ -1,29 +1,81 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student App - Frontend</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        h1 { color: #1e293b; margin-bottom: 30px; }
-        .nav { display: flex; flex-direction: column; gap: 15px; }
-        .nav-btn { display: block; padding: 15px; background: #3b82f6; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.2s; }
-        .nav-btn:hover { background: #2563eb; }
-        .nav-btn.secondary { background: #10b981; }
-        .nav-btn.secondary:hover { background: #059669; }
-        .port-info { font-size: 12px; color: #94a3b8; margin-top: 20px; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #1e293b;
+            margin-bottom: 30px;
+        }
+
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            display: block;
+            padding: 15px;
+            background: #3b82f6;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+
+        .nav-btn:hover {
+            background: #2563eb;
+        }
+
+        .nav-btn.secondary {
+            background: #10b981;
+        }
+
+        .nav-btn.secondary:hover {
+            background: #059669;
+        }
+
+        .port-info {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 20px;
+        }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Ứng dụng Quản lý Sinh viên</h1>
         <div class="nav">
-            <a href="http://localhost:8000/about" class="nav-btn" target="_blank">📄 Trang Thông Tin Cá Nhân (Cổng 8000)</a>
-            <a href="http://localhost:8000/health" class="nav-btn secondary" target="_blank">🏥 Kiểm Tra Trạng Thái (Cổng 8000)</a>
+            <a href="http://localhost:8000/about" class="nav-btn" target="_blank">📄 Trang Thông Tin Cá Nhân (Cổng
+                8000)</a>
+            <a href="http://localhost:8000/health" class="nav-btn secondary" target="_blank">🏥 Kiểm Tra Trạng Thái
+                (Cổng 8000)</a>
         </div>
         <p class="port-info">Lưu ý: Backend chạy ở cổng 8000, Frontend chạy ở cổng 3000</p>
     </div>
 </body>
+
 </html>
