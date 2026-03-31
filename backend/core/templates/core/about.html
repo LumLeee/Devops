@@ -18,125 +18,185 @@
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 40px 20px;
             font-family: 'Outfit', sans-serif;
             background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
         }
 
         .container {
             width: 100%;
-            max-width: 500px;
-            padding: 2rem;
+            max-width: 900px;
             box-sizing: border-box;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 0.8s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            width: 100%;
         }
 
         .profile-card {
             background: var(--card-bg);
             backdrop-filter: blur(12px);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 2rem;
             border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             text-align: center;
-            animation: fadeIn 0.8s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .profile-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            border-color: rgba(99, 102, 241, 0.3);
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background: linear-gradient(to right, var(--primary), var(--secondary));
             border-radius: 50%;
-            margin: 0 auto 1.5rem;
+            margin-bottom: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
+            font-size: 2rem;
             font-weight: 600;
             color: white;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
         }
 
-        h1 {
+        .student-name {
+            font-size: 1.4rem;
             margin: 0 0 0.5rem;
-            font-size: 1.8rem;
             font-weight: 600;
         }
 
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
+        .student-badge {
+            font-size: 0.75rem;
+            color: var(--primary);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 12px;
+            border-radius: 100px;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.05em;
         }
 
-        .info-grid {
-            display: grid;
-            gap: 1.5rem;
+        .info-list {
+            width: 100%;
             text-align: left;
         }
 
-        .info-item {
+        .info-row {
             display: flex;
             justify-content: space-between;
-            padding-bottom: 0.75rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 0.6rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .info-label {
             color: var(--text-muted);
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .info-value {
+        .info-val {
+            font-size: 0.9rem;
             font-weight: 500;
         }
 
-        footer {
+        .error-message {
+            text-align: center;
+            background: rgba(239, 68, 68, 0.1);
+            color: #fca5a5;
+            padding: 1.5rem;
+            border-radius: 12px;
             margin-top: 2rem;
-            font-size: 0.8rem;
+        }
+
+        footer {
+            margin-top: 4rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="profile-card">
-            <div class="avatar">
-                {{ student_name|slice:":1" }}
-            </div>
-            <h1>{{ student_name }}</h1>
-            <p class="subtitle">Thông tin Sinh Viên</p>
-            
-            <div class="info-grid">
-                <div class="info-item">
-                    <span class="info-label">Mã số sinh viên:</span>
-                    <span class="info-value">{{ student_id }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Lớp:</span>
-                    <span class="info-value">{{ student_class }}</span>
-                </div>
-                <div class="info-item">
-                    <span class="info-label">Ứng dụng:</span>
-                    <span class="info-value">{{ app_name }}</span>
-                </div>
-            </div>
-
-            <footer>
-                © 2026 Powered by Django
-            </footer>
+        <div class="header">
+            <h1>Danh Sách Sinh Viên</h1>
+            <p>{{ app_name }} (Dữ liệu từ Database)</p>
         </div>
+
+        {% if error_message %}
+            <div class="error-message">
+                {{ error_message }}
+            </div>
+        {% endif %}
+
+        <div class="profile-grid">
+            {% for student in students %}
+                <div class="profile-card">
+                    <div class="avatar">
+                        {{ student.fullname|slice:":1" }}
+                    </div>
+                    <div class="student-name">{{ student.fullname }}</div>
+                    <div class="student-badge">Sinh viên</div>
+                    
+                    <div class="info-list">
+                        <div class="info-row">
+                            <span class="info-label">Mã số sinh viên:</span>
+                            <span class="info-val">{{ student.student_id }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Lớp:</span>
+                            <span class="info-val">{{ student.class_name }}</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <footer>
+            © 2026 Powered by Django
+        </footer>
     </div>
 </body>
 </html>
