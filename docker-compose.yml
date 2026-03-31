@@ -1,40 +1,43 @@
-version: '3.8'
-
 services:
   db:
     image: mysql:8.0
     restart: always
     environment:
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD:-rootpassword}
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_DATABASE: student_db
+      MYSQL_ROOT_PASSWORD: rootpassword
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
       - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpassword"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
-    build: backend/
-    command: python manage.py runserver 0.0.0.0:8000
+    build: ./backend
+    restart: on-failure
+    command: >
+      sh -c "echo 'Waiting for MySQL...' &&
+             sleep 10 &&
+             python manage.py makemigrations core &&
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./backend:/app
     ports:
       - "8000:8000"
-    environment:
-      - DB_HOST=db
-      - DB_PORT=3306
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASSWORD}
-      - DB_NAME=${DB_NAME}
-    depends_on:
-      - db
     env_file:
-      - backend/.env
+      - .env
+    depends_on:
+      db:
+        condition: service_healthy
 
   frontend:
-    build: frontend/
+    build: ./frontend
     ports:
-      - "80:80"
+      - "3000:80"
     depends_on:
       - backend
 
