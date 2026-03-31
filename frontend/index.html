@@ -13,15 +13,17 @@
         .nav-btn:hover { background: #2563eb; }
         .nav-btn.secondary { background: #10b981; }
         .nav-btn.secondary:hover { background: #059669; }
+        .port-info { font-size: 12px; color: #94a3b8; margin-top: 20px; }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Ứng dụng Quản lý Sinh viên</h1>
         <div class="nav">
-            <a href="/about" class="nav-btn" target="_blank">📄 Trang Thông Tin Cá Nhân</a>
-            <a href="/health" class="nav-btn secondary" target="_blank">🏥 Kiểm Tra Trạng Thái</a>
+            <a href="http://localhost:8000/about" class="nav-btn" target="_blank">📄 Trang Thông Tin Cá Nhân (Cổng 8000)</a>
+            <a href="http://localhost:8000/health" class="nav-btn secondary" target="_blank">🏥 Kiểm Tra Trạng Thái (Cổng 8000)</a>
         </div>
+        <p class="port-info">Lưu ý: Backend chạy ở cổng 8000, Frontend chạy ở cổng 3000</p>
     </div>
 </body>
 </html>
