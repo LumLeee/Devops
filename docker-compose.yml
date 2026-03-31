@@ -13,23 +13,30 @@ services:
     volumes:
       - db_data:/var/lib/mysql
 
-  web:
-    build: .
+  backend:
+    build: backend/
     command: python manage.py runserver 0.0.0.0:8000
     volumes:
-      - .:/app
+      - ./backend:/app
     ports:
       - "8000:8000"
     environment:
-      - MYSQL_HOST=db
-      - MYSQL_PORT=3306
-      - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD=${DB_PASSWORD}
-      - MYSQL_DB=${DB_NAME}
+      - DB_HOST=db
+      - DB_PORT=3306
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
     depends_on:
       - db
     env_file:
-      - .env
+      - backend/.env
+
+  frontend:
+    build: frontend/
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
 
 volumes:
   db_data:
