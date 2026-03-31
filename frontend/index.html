@@ -6,112 +6,22 @@
     <title>Student App - Frontend</title>
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
-        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        h1 { color: #1e293b; border-bottom: 2px solid #e2e8f0; padding-bottom: 15px; }
-        .nav { margin-bottom: 30px; }
-        .nav a { margin-right: 15px; text-decoration: none; color: #3b82f6; font-weight: 500; }
-        .nav a:hover { text-decoration: underline; }
-        .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; color: #64748b; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
-        button { background: #10b981; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; }
-        button:hover { background: #059669; }
-        .message-list { margin-top: 30px; }
-        .message-item { background: #f8fafc; padding: 15px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid #3b82f6; }
-        .message-item .name { font-weight: bold; color: #1e293b; }
-        .message-item .content { color: #475569; margin: 5px 0; }
-        .message-item .date { font-size: 12px; color: #94a3b8; }
+        .container { max-width: 600px; margin: 50px auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        h1 { color: #1e293b; margin-bottom: 30px; }
+        .nav { display: flex; flex-direction: column; gap: 15px; }
+        .nav-btn { display: block; padding: 15px; background: #3b82f6; color: white; text-decoration: none; border-radius: 8px; font-weight: 600; transition: background 0.2s; }
+        .nav-btn:hover { background: #2563eb; }
+        .nav-btn.secondary { background: #10b981; }
+        .nav-btn.secondary:hover { background: #059669; }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bảng Tin Sinh Viên</h1>
+        <h1>Ứng dụng Quản lý Sinh viên</h1>
         <div class="nav">
-            <a href="/about" target="_blank">Trang Thông Tin Cá Nhân (/about)</a>
-            <a href="/health" target="_blank">Kiểm Tra Trạng Thái (/health)</a>
-        </div>
-
-        <div class="form-group">
-            <h3>Để lại lời nhắn</h3>
-            <label for="name">Tên của bạn:</label>
-            <input type="text" id="name" placeholder="Họ và tên...">
-        </div>
-        <div class="form-group">
-            <label for="content">Lời nhắn:</label>
-            <textarea id="content" rows="3" placeholder="Nhập nội dung..."></textarea>
-        </div>
-        <button onclick="postMessage()">Gửi lời nhắn</button>
-
-        <div class="message-list" id="messageList">
-            <h3>Lời nhắn mới nhất</h3>
-            <div id="loading">Đang tải dữ liệu...</div>
+            <a href="/about" class="nav-btn" target="_blank">📄 Trang Thông Tin Cá Nhân</a>
+            <a href="/health" class="nav-btn secondary" target="_blank">🏥 Kiểm Tra Trạng Thái</a>
         </div>
     </div>
-
-    <script>
-        const API_URL = '/api/messages';
-
-        async function fetchMessages() {
-            try {
-                const response = await fetch(API_URL);
-                const data = await response.json();
-                const list = document.getElementById('messageList');
-                const loading = document.getElementById('loading');
-                if (loading) loading.remove();
-
-                const oldMessages = list.querySelectorAll('.message-item');
-                oldMessages.forEach(m => m.remove());
-
-                data.forEach(m => {
-                    const div = document.createElement('div');
-                    div.className = 'message-item';
-                    div.innerHTML = `
-                        <div class="name">${m.name}</div>
-                        <div class="content">${m.content}</div>
-                        <div class="date">${m.date}</div>
-                    `;
-                    list.appendChild(div);
-                });
-            } catch (error) {
-                console.error('Error fetching messages:', error);
-            }
-        }
-
-        async function postMessage() {
-            const nameInput = document.getElementById('name');
-            const contentInput = document.getElementById('content');
-            
-            if (!nameInput.value || !contentInput.value) {
-                alert('Vui lòng nhập đầy đủ thông tin!');
-                return;
-            }
-
-            try {
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        name: nameInput.value,
-                        content: contentInput.value
-                    })
-                });
-
-                if (response.ok) {
-                    nameInput.value = '';
-                    contentInput.value = '';
-                    fetchMessages();
-                } else {
-                    alert('Lỗi khi gửi lời nhắn');
-                }
-            } catch (error) {
-                console.error('Error posting message:', error);
-            }
-        }
-
-        // Initial fetch
-        fetchMessages();
-        // Refresh every 30 seconds
-        setInterval(fetchMessages, 30000);
-    </script>
 </body>
 </html>
